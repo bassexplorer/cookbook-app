@@ -1,4 +1,4 @@
-# cookbook-app
+# Cook Book Vuejs Application
 
 ## Project setup
 ```

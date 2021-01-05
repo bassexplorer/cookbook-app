@@ -1,19 +1,27 @@
 <template>
   <v-app>
-    <TopNavigationComp />
-    <v-main>
-      <router-view />
+    <the-navigation></the-navigation>
+
+    <v-main class="overflow-y-auto">
+      <v-container>
+        <router-view />
+      </v-container>
     </v-main>
+    <the-footer></the-footer>
   </v-app>
 </template>
 
 <script>
-import TopNavigationComp from "./components/TopNavigationComp";
+import TheFooter from "./components/layout/TheFooter.vue";
+import TheNavigation from "./components/layout/TheNavigation";
 
 export default {
   name: "App",
 
-  components: { TopNavigationComp },
+  components: {
+    TheNavigation,
+    TheFooter
+  },
 
   data: () => ({
     //

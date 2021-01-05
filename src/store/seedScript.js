@@ -1,5 +1,5 @@
 import db from "../db";
-import { state } from "./appInit";
+// import { state } from "./appInit";
 
 // const state = {
 //   recipes: [],
@@ -57,6 +57,6 @@ const actions = {
 export default {
   namespaced: true,
   actions,
-  mutations,
-  state
+  mutations
+  // state
 };

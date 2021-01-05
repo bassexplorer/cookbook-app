@@ -7,7 +7,14 @@
         v-for="(item, index) in sortedCategories"
         :key="item.id"
       >
-        <v-list-item link :to="{name:"", }" :class="isEven(index)">
+        <v-list-item
+          link
+          :to="{
+            name: 'RecipeCategory',
+            params: { categoryId: item.slug }
+          }"
+          :class="isEven(index)"
+        >
           <v-list-item-content>
             <v-list-item-title
               class="text-body-1"
@@ -24,16 +31,16 @@
 import { mapState } from "vuex";
 export default {
   methods: {
-    generateLink() {
-      // eslint-disable-next-line prettier/prettier
-      // const generatedId = itemName.name.split(" ").join("_").toLowerCase();
-      // const link = {
-      //   name: "RecipeCategories",
-      //   params: { categoryId: generatedId }
-      // };
-      // this.$router.push(link);
-      console.log(this.recipeCategories);
-    },
+    // generateLink() {
+    //   // eslint-disable-next-line prettier/prettier
+    //   // const generatedId = itemName.name.split(" ").join("_").toLowerCase();
+    //   // const link = {
+    //   //   name: "RecipeCategories",
+    //   //   params: { categoryId: generatedId }
+    //   // };
+    //   // this.$router.push(link);
+    //   console.log(this.recipeCategories);
+    // },
     isEven(number) {
       if (number % 2 == 0) {
         return "";

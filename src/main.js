@@ -1,22 +1,29 @@
+/* eslint-disable no-unused-vars */
+import vuetify from "./plugins/vuetify";
 import Vue from "vue";
 import App from "./App.vue";
 
-// eslint-disable-next-line no-unused-vars
 import firebase from "./firebase";
-import { firestorePlugin } from "vuefire";
+import auth from "./auth";
 import store from "./store/index";
 import router from "./router/index";
 import axios from "axios";
 
-import vuetify from "./plugins/vuetify";
+import CardTemplate from "./components/UI/CardTemplate.vue";
 
-Vue.use(firestorePlugin);
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
+Vue.component("card-template", CardTemplate);
+
+let app;
+firebase.auth().onAuthStateChanged(user => {
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      vuetify,
+      render: h => h(App)
+    }).$mount("#app");
+  }
+});

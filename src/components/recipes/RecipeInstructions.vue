@@ -1,16 +1,19 @@
 <template>
   <v-stepper v-model="e6" vertical class="elevation-0">
     <!--  -->
-    <div v-for="step in steps" :key="step">
+    <div v-for="(step, index) in steps" :key="step">
       <v-stepper-step
-        :step="step"
+        :step="index + 1"
         editable
         :complete="complete"
         class="d-inline-flex"
-        edit-icon="mdi-check"
+        edit-icon="mdi-circle-medium"
         complete-icon="mdi-check"
       >
-        <span>This is the {{ step }}. in the line.</span>
+        <template v-slot:append>
+          <div>FOS</div>
+        </template>
+        <span>{{ step }}</span>
       </v-stepper-step>
     </div>
     <v-btn @click="complete = !complete">Overview</v-btn>
@@ -19,11 +22,12 @@
 
 <script>
 export default {
+  props: ["steps"],
   data() {
     return {
       e6: 1,
-      steps: [1, 2, 3, 4, 5, 6],
-      complete: false
+      // steps: [1, 2, 3, 4, 5, 6],
+      complete: true
     };
   },
   methods: {

@@ -4,7 +4,7 @@
       <v-col cols="4" class="pa-0">
         <v-img
           class="mt-0 rounded-xl"
-          src="https://picsum.photos/500/300?image=40"
+          :src="require(`../../assets/recipeIMG/${this.imageUrl}`)"
         ></v-img>
       </v-col>
       <v-col cols="8">
@@ -56,12 +56,29 @@ export default {
       type: String,
       default: "The title is missing",
       required: true
+    },
+    imageUrl: {
+      type: String,
+      default: "",
+      required: true
+    },
+    likedByUser: {
+      type: Boolean,
+      default: false,
+      required: true
     }
   },
   data() {
     return {
-      fav: false
+      fav: this.likedByUser
     };
+  },
+  computed: {
+    generatedImageUrl() {
+      const url = "../../assets/recipeIMG/" + this.imageUrl;
+      console.log(url);
+      return url;
+    }
   }
 };
 </script>

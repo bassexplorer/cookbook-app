@@ -10,18 +10,18 @@
     <v-sheet class="rounded-xl" outlined>
       <v-card-text>
         <div class="text--primary" v-if="!edit">
-          <span v-if="note === ''">
+          <span v-if="notes === ''">
             Add notes to your saved recipe. Maybe it can help you later! :)
             <br />
             (A little bit more sugar..etc)
           </span>
-          {{ note }}
+          {{ notes }}
         </div>
         <v-textarea
           v-if="edit"
           name="input-7-1"
           label="Edit notes"
-          v-model="note"
+          v-model="notes"
           hint="Anything that can help you next time!"
         ></v-textarea>
       </v-card-text>
@@ -44,11 +44,15 @@
 
 <script>
 export default {
+  props: {
+    notes: {
+      type: String,
+      default: ""
+    }
+  },
   data() {
     return {
       edit: false,
-      note:
-        "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
       changedNote: ""
     };
   },
@@ -67,15 +71,15 @@ export default {
   methods: {
     onEdit() {
       this.edit = true;
-      this.changeNote = this.note;
+      this.changeNote = this.notes;
     },
     onCancel() {
       this.edit = false;
-      this.note = this.changedNote;
+      this.notes = this.changedNote;
     },
     onSave() {
       this.edit = false;
-      this.changedNote = this.note;
+      this.changedNote = this.notes;
     }
   }
 };

@@ -1,14 +1,15 @@
 <template>
   <div>
-    <card-template></card-template>
+    Your Favorites
+    <!-- <card-template></card-template> -->
   </div>
 </template>
 
 <script>
-import CardTemplate from "../UI/CardTemplate.vue";
+// import CardTemplate from "../UI/CardTemplate.vue";
 export default {
   components: {
-    CardTemplate
+    // CardTemplate
   }
 };
 </script>

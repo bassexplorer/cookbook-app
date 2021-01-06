@@ -7,19 +7,21 @@
   >
     <v-row>
       <v-col>
-        <search-field></search-field>
+        <search-field @search="onSearch"></search-field>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="7" class="mx-auto">
-        <v-card flat color="error" rounded="xl">
-          <v-card-text
-            class="white--text text--lighten-5 text-center text-h5 font-weight-bold"
-          >
-            Your discount code for the book: <br />
-            {{ user.discount_code }}
-          </v-card-text>
-        </v-card>
+      <v-col cols="9" class="mx-auto">
+        <!-- <main-area v-show="!isSearching"></main-area> -->
+
+        <router-view v-if="!isSearching"></router-view>
+
+        <search-results
+          v-if="isSearching"
+          :searchTerm="searchTerm"
+          :searchByTitle="byTitle"
+          :searchByIngredient="byIngredient"
+        ></search-results>
       </v-col>
       <v-col cols="3">
         <recipe-categories></recipe-categories>
@@ -29,22 +31,38 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import SearchField from "../components/app-home/SearchField";
+import SearchField from "../components/search/SearchField.vue";
+import SearchResults from "../components/search/SearchResults.vue";
 import RecipeCategories from "../components/recipes/RecipeCategories.vue";
+// import MainArea from "../components/app-home/MainArea.vue";
 export default {
   components: {
     SearchField,
-    RecipeCategories
+    RecipeCategories,
+    // MainArea,
+    SearchResults
   },
-  computed: { ...mapState("auth", ["user"]) },
-
+  data() {
+    return {
+      isSearching: false,
+      searchTerm: "",
+      byTitle: true,
+      byIngredient: false,
+      showRouterView: false
+    };
+  },
   methods: {
-    ...mapActions("appInit", ["init"])
-  },
-
-  mounted() {
-    this.init();
+    onSearch(term, title, ingredient) {
+      console.log(term, title, ingredient);
+      if (term) {
+        this.isSearching = true;
+      } else {
+        this.isSearching = false;
+      }
+      this.byTitle = title;
+      this.byIngredient = ingredient;
+      this.searchTerm = term;
+    }
   }
 };
 </script>

@@ -5,7 +5,7 @@
       max-width="1000"
       v-for="item in sortedReviews"
       :key="item.title"
-      class="mx-auto mb-4 rounded-xl"
+      class="mr-auto mb-4 rounded-xl"
     >
       <v-list three-line>
         <v-list-item :key="item.title">

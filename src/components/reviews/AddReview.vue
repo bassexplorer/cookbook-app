@@ -12,8 +12,8 @@
         >
           <template v-slot:append-outer>
             <v-btn rounded text depressed class="share-btn">
-              <span class="ml-2 mr-4">Share</span>
               <v-icon>fa-share</v-icon>
+              <span class="ml-2 mr-4">Share</span>
             </v-btn>
           </template>
         </v-textarea>

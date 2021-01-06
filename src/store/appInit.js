@@ -13,8 +13,15 @@ const actions = {
   })
 };
 
+const getters = {
+  recipesReady(state) {
+    return state.recipes;
+  }
+};
+
 export default {
   namespaced: true,
   actions,
-  state
+  state,
+  getters
 };

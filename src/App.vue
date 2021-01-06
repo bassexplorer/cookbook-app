@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 import TheFooter from "./components/layout/TheFooter.vue";
 import TheNavigation from "./components/layout/TheNavigation";
 
@@ -22,9 +23,13 @@ export default {
     TheNavigation,
     TheFooter
   },
-
-  data: () => ({
-    //
-  })
+  mounted() {
+    if (this.isLoggedIn) {
+      this.init();
+      console.log(this.isLoggedIn);
+    }
+  },
+  computed: { ...mapState("auth", ["isLoggedIn"]) },
+  methods: mapActions("appInit", ["init"])
 };
 </script>

@@ -30,12 +30,25 @@ const routes = [
     component: () => import("../views/AppLanding.vue")
   },
   // Where the user land after login
+
   {
     path: "/app-home",
     name: "AppHome",
     meta: { requiresAuth: true },
-    component: () => import("../views/AppHome.vue")
-    // beforeEnter: AuthGuard
+    component: () => import("../views/AppHome.vue"),
+    children: [
+      {
+        path: "",
+        name: "MainArea",
+        component: () => import("../components/app-home/MainArea.vue")
+      },
+      {
+        path: "/category/:categoryId",
+        name: "CategoryLoader",
+        props: true,
+        component: () => import("../components/recipes/CategoryLoader.vue")
+      }
+    ]
   },
   // If the user click on the recipes menu item it will list a couple of recipe from every category.
   {
@@ -47,7 +60,8 @@ const routes = [
   // if the user click on a category title
   {
     path: "/category/:categoryId",
-    name: "RecipeCategory",
+    name: "RecipeCategoryOFF",
+    props: true,
     meta: { requiresAuth: true },
     component: () => import("../views/ListRecipes.vue")
   },
@@ -56,6 +70,7 @@ const routes = [
   {
     path: "/recipe/:recipeId",
     name: "Recipe",
+    props: true,
     component: () => import("../views/RecipeItem.vue"),
     meta: { requiresAuth: true }
   },

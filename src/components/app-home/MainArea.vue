@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import DiscountCode from "./DiscountCode";
 import YourFavorites from "./YourFavorites";
 import OurSuggestions from "./OurSuggestions";
@@ -17,7 +16,6 @@ export default {
     DiscountCode,
     YourFavorites,
     OurSuggestions
-  },
-  computed: { ...mapState("auth", ["user"]) }
+  }
 };
 </script>

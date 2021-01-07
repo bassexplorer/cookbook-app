@@ -1,5 +1,10 @@
 <template>
-  <v-card class="pb-6 mx-auto rounded-xl" max-width="1280" color="white">
+  <v-card
+    class="pb-6 mx-auto rounded-xl"
+    elevation="5"
+    max-width="1280"
+    color="white"
+  >
     <div v-if="!isLoading">
       <recipe-intro
         :portion="loadedRecipe.portionSize"
@@ -7,13 +12,14 @@
         :likes="loadedRecipe.likes"
         :imageUrl="loadedRecipe.imageUrl"
         :likedByUser="searchUserRecipes"
+        @liked-By-User="addOrRemoveRecipe"
       ></recipe-intro>
-
       <div class="mx-12">
         <v-row class="justify-space-betwee mt-10">
           <v-col>
             <recipe-portion-setter
               :portion="loadedRecipe.portionSize"
+              @on-portion-set="setPortionSize"
             ></recipe-portion-setter>
           </v-col>
         </v-row>
@@ -21,10 +27,18 @@
           <v-col cols="6">
             <recipe-ingredients
               :ingredients="loadedRecipe.ingredients"
+              :requiredPortion="newPortionSize"
+              :portionBase="loadedRecipe.portionSize"
             ></recipe-ingredients>
           </v-col>
           <v-col cols="4">
-            <recipe-note :notes="loadedRecipe.notes"></recipe-note>
+            <recipe-note
+              :class="searchUserRecipes ? '' : 'disableNotes'"
+              :disableNotes="!searchUserRecipes"
+              :notes="loadUserNotes"
+              @note-changed="onNoteSave"
+              @editing="onEdit"
+            ></recipe-note>
           </v-col>
         </v-row>
         <v-row>
@@ -63,8 +77,10 @@ export default {
   },
   data() {
     return {
-      loadedRecipe: {},
-      isLoading: true
+      isLoading: true,
+      isEditing: false,
+      isSavedByUser: this.searchUserRecipes,
+      newPortionSize: 0
     };
   },
   mounted() {
@@ -79,20 +95,88 @@ export default {
     }
   },
   computed: {
-    ...mapState("appInit", ["recipes"]),
+    ...mapState("appInit", ["recipes", "userFavorites"]),
     searchUserRecipes() {
-      return console.log("halóó");
+      const favorite = this.userFavorites.findIndex(
+        recipe => recipe.id == this.loadedRecipe.id
+      );
+      if (favorite >= 0) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    loadUserNotes() {
+      const recipe = this.userFavorites.find(
+        recipe => recipe.id == this.loadedRecipe.id
+      );
+      if (!recipe) {
+        return "";
+      } else {
+        return recipe.notes;
+      }
+    },
+    loadedRecipe() {
+      return this.recipes.find(recipe => {
+        return recipe.slug == this.recipeId;
+      });
     }
   },
   methods: {
     ...mapActions("appInit", ["init"]),
+    ...mapActions("favoriteRecipes", [
+      "saveUpdateRecipe",
+      "removeRecipe",
+      "userLikeRecipe",
+      "userDislikeRecipe"
+    ]),
     afterInit() {
-      this.loadedRecipe = this.recipes.find(recipe => {
-        return recipe.slug == this.recipeId;
-      });
       if (!this.loadedRecipe) {
         this.$router.push({ name: "AppHome" });
       }
+    },
+    onNoteSave(noteToBeSaved) {
+      this.loadedRecipe.notes = noteToBeSaved;
+      this.saveUpdateRecipe(this.loadedRecipe);
+    },
+    onEdit(editingState) {
+      this.isEditing = editingState;
+    },
+    addOrRemoveRecipe() {
+      if (!this.searchUserRecipes) {
+        this.saveUpdateRecipe(this.loadedRecipe);
+        this.userLikeRecipe(this.loadedRecipe);
+      } else {
+        if (this.loadUserNotes !== "") {
+          const userWantsToDislike = confirm(
+            "Are you sure? You have saved notes on this recipe! If you leave they will be lost!"
+          );
+          if (userWantsToDislike) {
+            this.removeRecipe(this.loadedRecipe);
+            this.userDislikeRecipe(this.loadedRecipe);
+          } else {
+            return;
+          }
+        } else {
+          this.removeRecipe(this.loadedRecipe);
+          this.userDislikeRecipe(this.loadedRecipe);
+        }
+      }
+      this.isSavedByUser = !this.isSavedByUser;
+    },
+    setPortionSize(newPortion) {
+      // console.log("newPortion", newPortion);
+      this.newPortionSize = newPortion;
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.isEditing) {
+      const userWantsToLeave = confirm(
+        "Are you sure? You have unsaved changes!"
+      );
+      next(userWantsToLeave);
+    } else {
+      next();
     }
   }
 };

@@ -24,12 +24,24 @@ export default {
     TheFooter
   },
   mounted() {
+    this.homeInit();
     if (this.isLoggedIn) {
       this.init();
-      console.log(this.isLoggedIn);
+      // console.log(this.isLoggedIn);
     }
   },
   computed: { ...mapState("auth", ["isLoggedIn"]) },
-  methods: mapActions("appInit", ["init"])
+  methods: mapActions("appInit", ["init", "homeInit"])
 };
 </script>
+
+<style lang="scss">
+.theme--light.v-application {
+  background: #fff !important;
+  color: #383358 !important;
+}
+.theme--dark.v-application {
+  background: #383358 !important;
+  color: #ffe5e5 !important;
+}
+</style>

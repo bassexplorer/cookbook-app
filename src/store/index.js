@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import auth from "./auth";
 import seedScript from "./seedScript";
 import appInit from "./appInit";
+import favoriteRecipes from "./favoriteRecipes";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     seedScript,
-    appInit
+    appInit,
+    favoriteRecipes
   }
 });

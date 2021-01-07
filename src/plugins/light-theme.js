@@ -1,23 +1,11 @@
-// import colors from "vuetify/lib/util/colors";
-
-// const lightPreset = {
-//   primary: colors.red.darken1, // #E53935
-//   secondary: colors.red.lighten4, // #FFCDD2
-//   accent: colors.indigo.base // #3F51B5
-// };
-
-// export { lightPreset };
-
 import colors from "vuetify/lib/util/colors";
 
 export default {
   primary: {
-    base: "#FFE5E5",
-    darken1: colors.purple.darken2
+    base: colors.purple.darken
   },
   secondary: "#B50000",
-  tertiary: colors.pink.base,
-  accent: "#383358",
+  accent: "#FFE5E5",
   error: "#FF5252",
   info: "#2196F3",
   success: "#4CAF50",

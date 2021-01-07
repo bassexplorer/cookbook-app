@@ -10,13 +10,10 @@
         edit-icon="mdi-circle-medium"
         complete-icon="mdi-check"
       >
-        <template v-slot:append>
-          <div>FOS</div>
-        </template>
         <span>{{ step }}</span>
       </v-stepper-step>
     </div>
-    <v-btn @click="complete = !complete">Overview</v-btn>
+    <v-btn @click="complete = !complete">Step by step</v-btn>
   </v-stepper>
 </template>
 

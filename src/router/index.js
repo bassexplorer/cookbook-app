@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import goTo from "vuetify/es5/services/goto";
 import AuthGuard from "./auth-guard";
+import AdminGuard from "./admin-guard";
 
 Vue.use(VueRouter);
 
@@ -24,10 +25,11 @@ const routes = [
   },
   // ------------ Auth Needed
   {
-    path: "/app-landing",
-    name: "AppLanding",
+    path: "/add-recipe",
+    name: "AddRecipe",
     meta: { requiresAuth: true },
-    component: () => import("../views/AppLanding.vue")
+    component: () => import("../views/AddRecipe.vue"),
+    beforeEnter: AdminGuard
   },
   // Where the user land after login
 
@@ -35,36 +37,46 @@ const routes = [
     path: "/app-home",
     name: "AppHome",
     meta: { requiresAuth: true },
+    redirect: { name: "MainArea" },
     component: () => import("../views/AppHome.vue"),
     children: [
       {
         path: "",
         name: "MainArea",
-        component: () => import("../components/app-home/MainArea.vue")
+        component: () => import("../components/app-home/MainArea.vue"),
+        meta: { requiresAuth: true }
       },
       {
         path: "/category/:categoryId",
         name: "CategoryLoader",
         props: true,
-        component: () => import("../components/recipes/CategoryLoader.vue")
+        component: () => import("../components/recipes/CategoryLoader.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: "/recipes",
+        name: "AllRecipes",
+        props: true,
+        component: () => import("../components/recipes/AllRecipes.vue"),
+        meta: { requiresAuth: true }
       }
     ]
   },
   // If the user click on the recipes menu item it will list a couple of recipe from every category.
-  {
-    path: "/list-recipes",
-    name: "Recipes",
-    meta: { requiresAuth: true },
-    component: () => import("../views/ListRecipes.vue")
-  },
+  // {
+  //   path: "/list-recipes",
+  //   name: "Recipes",
+  //   meta: { requiresAuth: true },
+  //   component: () => import("../views/ListRecipes.vue")
+  // },
   // if the user click on a category title
-  {
-    path: "/category/:categoryId",
-    name: "RecipeCategoryOFF",
-    props: true,
-    meta: { requiresAuth: true },
-    component: () => import("../views/ListRecipes.vue")
-  },
+  // {
+  //   path: "/category/:categoryId",
+  //   name: "RecipeCategoryOFF",
+  //   props: true,
+  //   meta: { requiresAuth: true },
+  //   component: () => import("../views/ListRecipes.vue")
+  // },
 
   // An individual recipe
   {

@@ -13,16 +13,16 @@
 
           <v-card-actions class="ml-auto">
             <v-btn
-              :outlined="!fav"
-              @click="fav = !fav"
+              :outlined="!likedByUser"
+              @click="likeThisRecipe"
               class="rounded-l-xl"
-              :color="fav ? 'error' : ''"
-              :class="fav ? 'text-white' : ''"
+              :color="likedByUser ? 'error' : ''"
+              :class="likedByUser ? 'text-white' : ''"
             >
               <v-icon medium class="mr-2">
-                {{ fav ? "mdi-heart" : "mdi-heart-outline" }}
+                {{ likedByUser ? "mdi-heart" : "mdi-heart-outline" }}
               </v-icon>
-              Save{{ fav ? "d" : "" }}
+              Save{{ likedByUser ? "d" : "" }}
             </v-btn>
           </v-card-actions>
         </v-card-title>
@@ -77,7 +77,13 @@ export default {
     generatedImageUrl() {
       const url = "../../assets/recipeIMG/" + this.imageUrl;
       console.log(url);
+      console.log(this.likedByUser);
       return url;
+    }
+  },
+  methods: {
+    likeThisRecipe() {
+      this.$emit("liked-By-User", this.fav);
     }
   }
 };

@@ -4,6 +4,12 @@ import store from "@/store";
 import db from "@/db";
 import router from "@/router";
 
+const admins = ["bassexplorer.beni@gmail.com", "zsofia.csagoly@gmail.com"];
+
+function isAdmin(email) {
+  return admins.includes(email);
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     const setUser = {
@@ -12,7 +18,8 @@ firebase.auth().onAuthStateChanged(function(user) {
       image: user.photoURL,
       email: user.email,
       updated_at: firebase.firestore.FieldValue.serverTimestamp(),
-      discount_code: user.uid.slice(3, 12)
+      discount_code: user.uid.slice(3, 12),
+      admin: isAdmin(user.email)
     };
     db.collection("users")
       .doc(setUser.id)

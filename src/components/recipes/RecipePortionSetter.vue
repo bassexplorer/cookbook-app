@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       setPortion: this.portion,
+      prevPortion: this.portion,
       confirmedPortion: true
     };
   },
@@ -66,12 +67,17 @@ export default {
     },
     onConfirmPortion() {
       this.confirmedPortion = true;
+      this.$emit("on-portion-set", this.setPortion);
+      this.prevPortion = this.setPortion;
       //   I need to emit a comfirmed value to the db
     }
   },
+  mounted() {
+    this.$emit("on-portion-set", this.setPortion);
+  },
   computed: {
     portionConfirmer() {
-      if (this.setPortion == this.portion) return false;
+      if (this.setPortion == this.prevPortion) return false;
       else {
         return !this.confirmedPortion;
       }

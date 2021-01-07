@@ -15,30 +15,9 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
   props: ["categoryId"],
-  mounted() {
-    if (!this.recipes[0]) {
-      this.init().then(() => {
-        this.afterInit();
-        this.isLoading = false;
-      });
-    } else {
-      this.afterInit();
-      this.isLoading = false;
-    }
-  },
-
-  methods: {
-    ...mapActions("appInit", ["init"]),
-    afterInit() {
-      const categoryWannabe = this.recipesInCategory;
-      if (!categoryWannabe) {
-        this.$router.push({ name: "NotFound" });
-      }
-    }
-  },
   computed: {
     ...mapState("appInit", ["recipes"]),
     recipesInCategory() {

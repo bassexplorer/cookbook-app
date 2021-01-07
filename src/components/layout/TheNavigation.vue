@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar app elevate-on-scroll color="#FFFBE6" height="70">
-    <v-container d-flex justify-center align-center>
+  <v-app-bar app elevate-on-scroll color="white" shrink-on-scroll prominent>
+    <v-container d-flex justify-center align-center class="align-self-center">
       <div v-if="!isLoggedIn">
         <v-btn
           v-for="link in links"
@@ -14,7 +14,7 @@
       </div>
 
       <div v-if="isLoggedIn">
-        <v-btn :to="link.link" text v-for="link in appLinks" :key="link.title">
+        <v-btn :to="link.link" text v-for="link in isAdmin" :key="link.title">
           {{ link.title }}
         </v-btn>
       </div>
@@ -27,7 +27,6 @@
         contain
         src="../../assets/base-imgs/vrahojskole-logo.svg"
         transition="scale-transition"
-        width="200"
       />
 
       <v-spacer></v-spacer>
@@ -78,7 +77,19 @@ import UserPlate from "../UI/UserPlate";
 export default {
   name: "TopNavigation",
   components: { UserPlate },
-  computed: { ...mapState("auth", ["user", "isLoggedIn"]) },
+  computed: {
+    ...mapState("auth", ["user", "isLoggedIn"]),
+    isAdmin() {
+      // console.log(this.user.admin);
+      if (this.user.admin) {
+        return this.appLinks;
+      } else {
+        return this.appLinks.filter(item => {
+          return !item.adminOnly;
+        });
+      }
+    }
+  },
   methods: { ...mapActions("auth", ["loginGoogle", "logout"]) },
   data: () => ({
     links: [
@@ -88,14 +99,35 @@ export default {
       { title: "Book", link: "/#book" }
     ],
     appLinks: [
-      { title: "Home", link: { name: "AppHome" } },
-      { title: "SeedRecipes", link: { name: "AppLanding" } },
-      { title: "Recipes", link: { name: "Recipes" } }
+      { title: "Home", link: { name: "AppHome" }, adminOnly: false },
+      { title: "Recipes", link: { name: "AllRecipes" }, adminOnly: false },
+      { title: "Add Recipe", link: { name: "AddRecipe" }, adminOnly: true }
     ],
     register: { name: "Registration" },
     login: { name: "LogIn" }
   })
 };
-</script>
 
-<style lang="scss" scoped></style>
+// :to="{ name: 'CategoryLoader', params: { categoryId: item.slug } }"
+</script>
+<style lang="scss" scoped>
+.v-app-bar {
+  .logo {
+    max-height: 110px !important;
+    transition: all 0.5s;
+  }
+  &--is-scrolled .logo {
+    max-height: 50px !important;
+    transition: all 0.5s;
+  }
+}
+
+.theme--dark.v-app-bar {
+  background: #383358 !important;
+  color: #ffe5e5 !important;
+}
+
+.theme--dark.v-app-bar .logo {
+  filter: brightness(12.5);
+}
+</style>

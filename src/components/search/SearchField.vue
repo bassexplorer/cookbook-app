@@ -14,7 +14,7 @@
         <v-checkbox
           v-model="justTitle"
           class="mx-8 mt-0"
-          label="Search by title"
+          label="Search by recipe"
         ></v-checkbox>
         <v-checkbox
           v-model="justIngredients"

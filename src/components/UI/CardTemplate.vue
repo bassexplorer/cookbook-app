@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="my-12 rounded-lg"
+    class="mb-6 rounded-lg"
     max-width="374"
     :to="{ name: 'Recipe', params: { recipeId: slug } }"
   >
@@ -53,6 +53,10 @@ export default {
       type: Number,
       default: 0,
       required: true
+    },
+    likedByUser: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -67,7 +71,7 @@ export default {
   data() {
     return {
       active: false,
-      fav: false
+      fav: true
     };
   }
 };

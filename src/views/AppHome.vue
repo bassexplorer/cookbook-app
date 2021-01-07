@@ -34,6 +34,7 @@
 import SearchField from "../components/search/SearchField.vue";
 import SearchResults from "../components/search/SearchResults.vue";
 import RecipeCategories from "../components/recipes/RecipeCategories.vue";
+import { mapActions, mapState } from "vuex";
 // import MainArea from "../components/app-home/MainArea.vue";
 export default {
   components: {
@@ -47,13 +48,11 @@ export default {
       isSearching: false,
       searchTerm: "",
       byTitle: true,
-      byIngredient: false,
-      showRouterView: false
+      byIngredient: false
     };
   },
   methods: {
     onSearch(term, title, ingredient) {
-      console.log(term, title, ingredient);
       if (term) {
         this.isSearching = true;
       } else {
@@ -62,7 +61,21 @@ export default {
       this.byTitle = title;
       this.byIngredient = ingredient;
       this.searchTerm = term;
+    },
+    ...mapActions("appInit", ["init"])
+  },
+  mounted() {
+    if (!this.recipes[0]) {
+      this.init().then(() => {
+        this.isLoading = false;
+      });
+    } else {
+      this.isLoading = false;
     }
+  },
+  computed: {
+    ...mapState("appInit", ["recipes"]),
+    ...mapState("appInit", ["userFavorites"])
   }
 };
 </script>

@@ -1,15 +1,17 @@
 <template>
   <v-menu offset-y origin="center center" transition="scale-transition">
     <template v-slot:activator="{ on, attrs }">
-      <v-list rounded dense>
-        <v-list-item dense link v-bind="attrs" v-on="on">
-          <v-list-item-avatar size="30">
+      <v-list rounded>
+        <v-list-item link v-bind="attrs" v-on="on">
+          <v-list-item-avatar size="30" class="pa-0 ma-0 mr-4">
             <v-img v-if="imgUrl" :src="imgUrl" alt="Avatar"></v-img>
             <v-icon v-if="!imgUrl" alt="Avatar"> mdi-account-circle </v-icon>
           </v-list-item-avatar>
 
-          <v-list-item-content>
-            {{ displayName }}
+          <v-list-item-content class="pa-0 ma-0">
+            <v-list-item-title>
+              {{ displayName }}
+            </v-list-item-title>
           </v-list-item-content>
 
           <v-list-item-action>
@@ -19,7 +21,7 @@
       </v-list>
     </template>
 
-    <v-list dense>
+    <v-list>
       <v-list-item>
         <v-list-item-content>
           <slot name="switch"></slot>

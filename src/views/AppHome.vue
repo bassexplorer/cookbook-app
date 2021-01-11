@@ -1,46 +1,51 @@
 <template>
-  <v-card
-    class="pb-6 mx-auto rounded-xl"
-    max-width="1280"
-    flat
-    color="transparent"
-  >
-    <v-row>
-      <v-col>
-        <search-field @search="onSearch"></search-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="9" class="mx-auto">
-        <!-- <main-area v-show="!isSearching"></main-area> -->
+  <v-container>
+    <v-card
+      class="pb-6 mx-auto rounded-xl"
+      max-width="1280"
+      flat
+      color="transparent"
+    >
+      <v-row>
+        <v-col>
+          <search-field @search="onSearch"></search-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col xl="9" lg="9" md="9" sm="12" class="mx-auto">
+          <recipe-categories-mobile
+            v-if="$vuetify.breakpoint.mobile"
+            class="mb-6"
+          ></recipe-categories-mobile>
+          <router-view v-if="!isSearching"></router-view>
 
-        <router-view v-if="!isSearching"></router-view>
-
-        <search-results
-          v-if="isSearching"
-          :searchTerm="searchTerm"
-          :searchByTitle="byTitle"
-          :searchByIngredient="byIngredient"
-        ></search-results>
-      </v-col>
-      <v-col cols="3">
-        <recipe-categories></recipe-categories>
-      </v-col>
-    </v-row>
-  </v-card>
+          <search-results
+            v-if="isSearching"
+            :searchTerm="searchTerm"
+            :searchByTitle="byTitle"
+            :searchByIngredient="byIngredient"
+          ></search-results>
+        </v-col>
+        <v-col xl="3" lg="3" md="3" sm="12" v-if="!$vuetify.breakpoint.mobile">
+          <recipe-categories></recipe-categories>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 import SearchField from "../components/search/SearchField.vue";
 import SearchResults from "../components/search/SearchResults.vue";
 import RecipeCategories from "../components/recipes/RecipeCategories.vue";
+import RecipeCategoriesMobile from "../components/recipes/RecipeCategoriesMobile.vue";
 import { mapActions, mapState } from "vuex";
 // import MainArea from "../components/app-home/MainArea.vue";
 export default {
   components: {
     SearchField,
     RecipeCategories,
-    // MainArea,
+    RecipeCategoriesMobile,
     SearchResults
   },
   data() {
@@ -80,4 +85,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.theme--dark.v-card {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+</style>

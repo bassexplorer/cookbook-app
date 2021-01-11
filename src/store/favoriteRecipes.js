@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import firebase from "@/firebase";
 import db from "../db";
 
 const actions = {
@@ -7,7 +5,6 @@ const actions = {
   userLikeRecipe(_, recipeObj) {
     const plusLike = recipeObj;
     plusLike.likes = recipeObj.likes + 1;
-    console.log("after like", plusLike.likes);
 
     db.collection("recipes")
       .doc(recipeObj.id)
@@ -18,7 +15,6 @@ const actions = {
     if (recipeObj.likes == 0) return;
     const plusLike = recipeObj;
     plusLike.likes = recipeObj.likes - 1;
-    console.log("after dislike", plusLike.likes);
 
     db.collection("recipes")
       .doc(recipeObj.id)
@@ -26,11 +22,10 @@ const actions = {
   },
 
   async saveUpdateRecipe({ rootState }, recipeObj) {
-    const favoriteRecipesRootState = rootState["appInit"].userFavorites;
     // where we should put the recipe in users collection in which user document
     const currentUserId = rootState["auth"].user.id;
-    const dbRef = await db.collection("users").doc(currentUserId);
-    dbRef
+    const dbRef = db.collection("users").doc(currentUserId);
+    await dbRef
       .collection("favorite_recipes")
       .doc(recipeObj.id)
       .set(recipeObj);
@@ -38,9 +33,9 @@ const actions = {
 
   async removeRecipe({ rootState }, recipeObj) {
     const currenrUserId = rootState["auth"].user.id;
-    const dbRef = await db.collection("users").doc(currenrUserId);
+    const dbRef = db.collection("users").doc(currenrUserId);
 
-    const snapshot = await dbRef
+    await dbRef
       .collection("favorite_recipes")
       .doc(recipeObj.id)
       .delete();

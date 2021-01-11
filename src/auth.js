@@ -27,6 +27,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // User is signed in.
     // add the user to the vuex store
     store.commit("auth/setUser", setUser);
+
     // navigate the page to the app home
     router.push({ name: "AppHome" }).catch(err => {
       // console.log(err);

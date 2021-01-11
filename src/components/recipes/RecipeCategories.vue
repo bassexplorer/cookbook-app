@@ -1,8 +1,20 @@
 <template>
   <v-card class="mx-auto" max-width="300" flat color="transparent">
-    <!-- <pre>{{ recipeCategories }}</pre> -->
     <v-list dense color="transparent">
-      <v-subheader class="text-h6 font-weight-bold">Categories</v-subheader>
+      <v-subheader class="text-h6 font-weight-bold">
+        Categories
+        <v-spacer></v-spacer>
+        <v-btn
+          text
+          outlined
+          :to="{
+            name: 'AllRecipes'
+          }"
+        >
+          Show all
+        </v-btn>
+      </v-subheader>
+
       <v-list-item-group
         v-for="(item, index) in sortedCategories"
         :key="item.id"
@@ -34,7 +46,7 @@ export default {
     isEven(number) {
       if (number % 2 == 0) {
         return "";
-      } else return "grey lighten-4";
+      } else return "accent lighten-3 flip-text-color";
     }
   },
   computed: {
@@ -60,14 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .v-item-group.theme--light.v-list-item-group {
-//   background-color: ;
-// }
-// .v-item-group.theme--dark.v-list-item-group {
-// }
-
-//  :to="{
-//             name: 'RecipeCategory',
-//             params: { categoryId: item.slug }
-//           }"
+.flip-text-color .v-list-item__title {
+  color: white;
+}
 </style>

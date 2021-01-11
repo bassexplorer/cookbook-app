@@ -1,42 +1,77 @@
 <template>
-  <v-container>
-    <v-card height="100vh" width="100%" class="text-center" id="home">
-      <h1 class="pt-16">Section 1</h1>
-      <intro-component></intro-component>
-    </v-card>
-    <v-card height="100vh" width="100%" class="text-center" id="recipes">
-      <h1 class="pt-16">Section 2</h1>
-      <v-container fluid class="mt-6">
-        <h3 class="text-h4 font-weight-bold">Our Suggestions</h3>
+  <div>
+    <section id="home">
+      <intro-section></intro-section>
+    </section>
+    <section id="recipes" class="py-12 section-background">
+      <about-author></about-author>
+      <v-container class="mt-6">
         <v-row>
-          <v-col v-for="recipe in demoRecipes" :key="recipe.id" cols="6">
+          <v-col
+            v-for="(recipe, index) in demoRecipes"
+            :key="recipe.id"
+            xl="3"
+            offset-md="0"
+            :offset-xl="index % 2 == 0 ? 3 : 0"
+          >
             <card-template
+              class="mx-auto"
               :imageUrl="recipe.imageUrl"
               :title="recipe.name"
               :likes="recipe.likes"
               :portion="recipe.portionSize"
               :slug="recipe.slug"
             ></card-template>
+            <v-spacer></v-spacer>
           </v-col>
         </v-row>
       </v-container>
-    </v-card>
-    <v-card height="100vh" width="100%" class="text-center" id="premium">
-      <h1 class="pt-16">Section 3</h1>
-    </v-card>
-    <v-card height="100vh" width="100%" class="text-center" id="book">
-      <h1 class="pt-16">Section 4</h1>
-    </v-card>
-  </v-container>
+    </section>
+    <section id="premium" class="py-12">
+      <section class="py-12 ">
+        <premium-membership></premium-membership>
+      </section>
+      <section class="py-12 section-background">
+        <search-section></search-section>
+      </section>
+      <section class="py-12">
+        <save-favorites></save-favorites>
+      </section>
+    </section>
+    <section id="book" class="py-12 section-background">
+      <book-purchase></book-purchase>
+    </section>
+  </div>
 </template>
 <script>
 import { mapState } from "vuex";
-import IntroComponent from "../components/website/IntroSection";
+import IntroSection from "../components/website/IntroSection.vue";
+import AboutAuthor from "../components/website/AboutAuthor.vue";
+import PremiumMembership from "../components/website/PremiumMembership.vue";
+import SearchSection from "../components/website/SearchSection.vue";
+import SaveFavorites from "../components/website/SaveFavorites.vue";
+import BookPurchase from "../components/website/BookPurchase.vue";
+
 export default {
-  components: { IntroComponent },
-  computed: {
-    ...mapState("appInit", ["demoRecipes"])
-  }
+  components: {
+    IntroSection,
+    AboutAuthor,
+    PremiumMembership,
+    SearchSection,
+    SaveFavorites,
+    BookPurchase
+  },
+  computed: mapState("appInit", ["demoRecipes"])
 };
 </script>
-<style lang=""></style>
+<style lang="scss" scoped>
+.section-background {
+  background-color: #f7f7f7;
+}
+section {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+</style>

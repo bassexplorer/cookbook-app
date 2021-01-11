@@ -17,7 +17,7 @@
 
         <v-btn
           large
-          depressed
+          outlined
           @click="onPersonPlus"
           class="center-piece rounded-r-xl"
         >

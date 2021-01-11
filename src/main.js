@@ -10,11 +10,13 @@ import router from "./router/index";
 import axios from "axios";
 
 import CardTemplate from "./components/UI/CardTemplate.vue";
+import DialogBox from "./components/UI/DialogBox.vue";
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
 Vue.component("card-template", CardTemplate);
+Vue.component("dialog-box", DialogBox);
 
 let app;
 firebase.auth().onAuthStateChanged(user => {

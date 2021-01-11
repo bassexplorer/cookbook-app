@@ -7,10 +7,10 @@
     max-width="344"
     color="transparent"
   >
-    <v-card-title class="display-1 text--primary"> My Notes </v-card-title>
+    <v-card-title class="display-1 primary--text"> My Notes </v-card-title>
     <v-sheet class="rounded-xl" outlined>
       <v-card-text>
-        <div class="text--primary" v-if="!edit">
+        <div class="text-body-1" v-if="!edit">
           <span v-if="noteCopy === '' && !disableNotes">
             Add notes to your saved recipe. Maybe it can help you later! :)
             <br />
@@ -95,12 +95,26 @@ export default {
 
 <style lang="scss" scoped>
 .theme--light.v-sheet--outlined {
-  border: thin solid rgba(0, 0, 0, 0.493);
+  border: thin solid #0000007e;
 }
-.theme--light.v-sheet {
+.theme--light.v-sheet,
+.theme--dark.v-sheet {
   background-color: transparent;
 }
-.note-card {
+.theme--dark.v-sheet--outlined {
+  border: thin solid #ffffff7e;
+}
+
+.theme--light .note-card {
   filter: grayscale(1) brightness(1.2);
+}
+
+.theme--dark .note-card {
+  span {
+    color: #ffffff7e;
+  }
+  .v-card__title {
+    color: #ffffff7e !important;
+  }
 }
 </style>

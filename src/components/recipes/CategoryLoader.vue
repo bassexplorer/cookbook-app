@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-for="recipe in recipesInCategory" :key="recipe.id" cols="6">
+      <v-col v-for="recipe in recipesInCategory" :key="recipe.id" xl="6" sm="6">
         <card-template
           :imageUrl="recipe.imageUrl"
           :title="recipe.name"

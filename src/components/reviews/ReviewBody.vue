@@ -2,32 +2,36 @@
   <div>
     <v-card
       outlined
-      max-width="1000"
+      elevation=""
+      max-width="1060"
+      min-height="100"
       v-for="item in sortedReviews"
       :key="item.title"
       class="mr-auto mb-4 rounded-xl"
     >
-      <v-list three-line>
+      <v-list three-line color="transparent">
         <v-list-item :key="item.title">
-          <!--  -->
           <v-list-item-avatar size="60">
             <v-img :src="item.avatar"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content class="pb-0">
             <v-list-item-title
-              class="text-h5"
+              class="text-h6"
               v-html="item.title"
             ></v-list-item-title>
             <v-list-item-subtitle
-              class="body-1"
+              class="text-body-1"
               v-html="item.review"
             ></v-list-item-subtitle>
             <v-list-item-action
               class="flex-row justify-start pa-0 ma-0 align-center"
             >
               <div>
-                <v-btn text>like</v-btn>
+                <v-btn text>
+                  <v-icon class="mr-2 red--text">mdi-heart</v-icon>
+                  like
+                </v-btn>
               </div>
               <v-spacer></v-spacer>
               <div>
@@ -36,8 +40,6 @@
               </div>
             </v-list-item-action>
           </v-list-item-content>
-
-          <!--  -->
         </v-list-item>
       </v-list>
     </v-card>
@@ -93,11 +95,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.theme--light.v-card {
-  background-color: transparent;
-  color: #356859;
+.theme--dark.v-sheet--outlined {
+  border: thin solid #ffffffc5;
 }
-.theme--light.v-list {
-  background: transparent;
+
+.theme--light.v-sheet--outlined {
+  border: thin solid #00000085;
 }
 </style>

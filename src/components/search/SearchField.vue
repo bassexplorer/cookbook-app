@@ -14,9 +14,11 @@
         <v-checkbox
           v-model="justTitle"
           class="mx-8 mt-0"
+          color="secondary"
           label="Search by recipe"
         ></v-checkbox>
         <v-checkbox
+          color="secondary"
           v-model="justIngredients"
           class="mt-0"
           label="Search by ingredients"

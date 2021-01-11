@@ -1,14 +1,17 @@
 <template>
-  <v-container class="home-container">
+  <v-container class="favorites-container">
     <v-row class="align-center">
       <v-col xl="6" lg="6" md="12" sm="12">
-        <h1
-          class="text-h2 text-sm-h2 text-md-h1 accent--text font-weight-bold mb-5"
-        >
-          Do you remember that tasty meal at Vrå Højskole?
-        </h1>
-        <p class="text-h4">Relive, Share or Gift the Experience</p>
-        <v-btn outlined x-large to="/registration">Sign up</v-btn>
+        <h2 class="text-h2 accent--text font-weight-bold mb-5">
+          Save your favourite recipes
+        </h2>
+        <p class="text-h4">
+          Sign up and create your list of favourites and have access to the full
+          selection of recipes
+        </p>
+        <v-btn outlined x-large to="/registration">
+          Get the premium version now
+        </v-btn>
       </v-col>
       <v-col xl="6" lg="6" md="12" sm="12">
         <video class="video-box" controls>
@@ -26,11 +29,6 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.home-container {
-  min-height: calc(100vh - (128px + 30px));
-  display: flex;
-  justify-content: center;
-}
 .video-box {
   min-width: 320px;
   max-width: 750px;

@@ -1,10 +1,10 @@
 <template>
   <v-card class="mr-auto" flat max-width="344" color="transparent">
-    <v-card-title class="display-1 text--primary"> Ingredients </v-card-title>
+    <v-card-title class="display-1 primary--text"> Ingredients </v-card-title>
 
     <v-list-item v-for="ingredient in ingredientAmount" :key="ingredient.name">
       <v-list-item-content>
-        <v-list-item-title>
+        <v-list-item-title class="text-body-1">
           <span class="font-weight-bold">
             {{ ingredient.amount }} {{ ingredient.mesurment }}
           </span>

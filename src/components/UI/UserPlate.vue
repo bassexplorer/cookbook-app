@@ -24,12 +24,20 @@
     <v-list>
       <v-list-item>
         <v-list-item-content>
-          <slot name="switch"></slot>
+          <v-list-item-title class="text-center">
+            <v-switch
+              v-model="$vuetify.theme.dark"
+              label="Dark Mode"
+              class="mx-auto d-inline-flex"
+            ></v-switch>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <slot name="logout"></slot>
+          <v-list-item-title class="text-center">
+            <slot name="logout"></slot>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>

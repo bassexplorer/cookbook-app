@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="accent" padless>
+  <v-footer color="red accent" padless>
     <v-row justify="center" no-gutters>
       <v-btn
         v-for="link in links"
@@ -12,7 +12,7 @@
       >
         {{ link.title }}
       </v-btn>
-      <v-col class="py-4 text-center primary lighten-2 white--text" cols="12">
+      <v-col class="py-4 text-center white--text accent" cols="12">
         @{{ new Date().getFullYear() }} — Created by:
         <strong> MMDI0919 Sem3MMD Group 4</strong>
       </v-col>

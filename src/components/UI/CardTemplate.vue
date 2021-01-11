@@ -3,7 +3,7 @@
     class="mb-6 rounded-lg"
     max-width="374"
     elevation="6"
-    :to="{ name: 'Recipe', params: { recipeId: slug } }"
+    :to="linkToRecipe"
   >
     <v-img
       height="250"
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     imageUrl: {
@@ -66,6 +67,18 @@ export default {
         return "noRecipeImg.jpg";
       } else {
         return this.imageUrl;
+      }
+    },
+    ...mapState("auth", ["isLoggedIn"]),
+    linkToRecipe() {
+      if (this.isLoggedIn) {
+        return { name: "Recipe", params: { recipeId: this.slug } };
+      } else {
+        return {
+          name: "DemoRecipe",
+          params: { recipeId: this.slug },
+          query: { teaser: true }
+        };
       }
     }
   },

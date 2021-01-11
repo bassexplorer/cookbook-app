@@ -62,22 +62,6 @@ const routes = [
       }
     ]
   },
-  // If the user click on the recipes menu item it will list a couple of recipe from every category.
-  // {
-  //   path: "/list-recipes",
-  //   name: "Recipes",
-  //   meta: { requiresAuth: true },
-  //   component: () => import("../views/ListRecipes.vue")
-  // },
-  // if the user click on a category title
-  // {
-  //   path: "/category/:categoryId",
-  //   name: "RecipeCategoryOFF",
-  //   props: true,
-  //   meta: { requiresAuth: true },
-  //   component: () => import("../views/ListRecipes.vue")
-  // },
-
   // An individual recipe
   {
     path: "/recipe/:recipeId",
@@ -85,6 +69,13 @@ const routes = [
     props: true,
     component: () => import("../views/RecipeItem.vue"),
     meta: { requiresAuth: true }
+  },
+
+  {
+    path: "/demo_recipe/:recipeId",
+    name: "DemoRecipe",
+    props: true,
+    component: () => import("../views/RecipeItem.vue")
   },
 
   // No need for auth they are part of the "website section"

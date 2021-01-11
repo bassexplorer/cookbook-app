@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="pb-6 mx-auto rounded-xl" elevation="5" max-width="1280">
+    <v-card class="pb-6 mx-auto rounded-xl" elevation="6" max-width="1280">
       <div v-if="!isLoading">
         <recipe-intro
           :portion="loadedRecipe.portionSize"
@@ -9,6 +9,7 @@
           :imageUrl="loadedRecipe.imageUrl"
           :likedByUser="searchUserRecipes"
           @liked-By-User="addOrRemoveRecipe"
+          :demo="isDemoRecipe"
         ></recipe-intro>
         <div class="mx-12">
           <v-row class="mt-10 justify-space-betwee">
@@ -29,6 +30,7 @@
             </v-col>
             <v-col xl="4" lg="4" md="4" sm="4">
               <recipe-note
+                :demo="isDemoRecipe"
                 :class="searchUserRecipes ? '' : 'disableNotes'"
                 :disableNotes="!searchUserRecipes"
                 :notes="loadUserNotes"
@@ -43,7 +45,7 @@
             ></recipe-instructions>
           </v-row>
         </div>
-        <add-review></add-review>
+        <add-review :demo="isDemoRecipe"></add-review>
       </div>
       <div v-if="isLoading" class="pt-6 d-flex flex-column align-center">
         <v-progress-circular
@@ -53,6 +55,7 @@
         Loading...
       </div>
     </v-card>
+    <!-- Dialog box -->
     <dialog-box v-model="openDialog">
       <template #title>
         <h3>Are you sure?</h3>
@@ -125,6 +128,14 @@ export default {
     }
   },
   computed: {
+    isDemoRecipe() {
+      const demo = this.$route.query.teaser;
+      if (!demo) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     ...mapState("appInit", ["recipes", "userFavorites"]),
     searchUserRecipes() {
       const favorite = this.userFavorites.findIndex(

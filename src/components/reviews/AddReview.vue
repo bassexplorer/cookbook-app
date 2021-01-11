@@ -21,7 +21,7 @@
     </v-row>
 
     <v-row class="mx-4">
-      <v-col> <review-body></review-body> </v-col>
+      <v-col> <review-body :isDemo="demo"></review-body> </v-col>
     </v-row>
   </v-container>
 </template>
@@ -29,6 +29,8 @@
 <script>
 import ReviewBody from "./ReviewBody";
 export default {
+  props: ["demo"],
+
   components: {
     ReviewBody
   }

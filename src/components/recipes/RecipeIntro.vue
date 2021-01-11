@@ -15,6 +15,7 @@
             <v-card-actions class="ml-auto">
               <v-btn
                 :outlined="!likedByUser"
+                :disabled="demo"
                 @click="likeThisRecipe"
                 class="rounded-l-xl"
                 :color="likedByUser ? 'error' : ''"
@@ -67,6 +68,11 @@ export default {
       required: true
     },
     likedByUser: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    demo: {
       type: Boolean,
       default: false,
       required: true

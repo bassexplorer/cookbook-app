@@ -1,12 +1,24 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto notes"
     :class="disableNotes ? 'note-card' : ''"
     flat
     max-height="500"
     max-width="344"
     color="transparent"
   >
+    <div
+      class="justify-center demo-recipe d-flex flex-column align-center"
+      v-if="demo"
+    >
+      <span class="mb-5 text-h6">
+        You need to login or Purchase the premium version for this functionality
+      </span>
+      <div>
+        <v-btn rounded outlined class="mr-2" :to="register"> Sign Up </v-btn>
+        <v-btn rounded outlined class="mr-2" :to="login"> Log in </v-btn>
+      </div>
+    </div>
     <v-card-title class="display-1 primary--text"> My Notes </v-card-title>
     <v-sheet class="rounded-xl" outlined>
       <v-card-text>
@@ -63,13 +75,19 @@ export default {
     disableNotes: {
       type: Boolean,
       default: true
+    },
+    demo: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
       edit: false,
       noteCopy: this.notes,
-      changedNote: ""
+      changedNote: "",
+      register: { name: "Registration" },
+      login: { name: "LogIn" }
     };
   },
   methods: {
@@ -116,5 +134,20 @@ export default {
   .v-card__title {
     color: #ffffff7e !important;
   }
+}
+
+.notes {
+  position: relative;
+}
+.demo-recipe {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 10;
+  border: 2px solid;
+  padding: 20px;
+  border-radius: 20px !important;
 }
 </style>

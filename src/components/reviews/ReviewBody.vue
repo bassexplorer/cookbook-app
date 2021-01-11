@@ -1,5 +1,18 @@
 <template>
-  <div>
+  <v-container fluid class="reviews-container">
+    <div
+      class="justify-center demo-recipe d-flex flex-column align-center"
+      v-if="isDemo"
+    >
+      <span class="mb-5 text-h6">
+        You need to login or Purchase the premium version for this functionality
+      </span>
+      <div>
+        <v-btn rounded outlined class="mr-2" :to="register"> Sign Up </v-btn>
+        <v-btn rounded outlined class="mr-2" :to="login"> Log in </v-btn>
+      </div>
+    </div>
+
     <v-card
       outlined
       elevation=""
@@ -7,7 +20,7 @@
       min-height="100"
       v-for="item in sortedReviews"
       :key="item.title"
-      class="mr-auto mb-4 rounded-xl"
+      class="mb-4 mr-auto rounded-xl"
     >
       <v-list three-line color="transparent">
         <v-list-item :key="item.title">
@@ -43,12 +56,15 @@
         </v-list-item>
       </v-list>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
+  props: ["isDemo"],
   data: () => ({
+    register: { name: "Registration" },
+    login: { name: "LogIn" },
     items: [
       {
         avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
@@ -101,5 +117,17 @@ export default {
 
 .theme--light.v-sheet--outlined {
   border: thin solid #00000085;
+}
+
+.reviews-container {
+  position: relative;
+}
+.demo-recipe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-left: -10px;
+  background: linear-gradient(transparent, white 50%);
+  z-index: 10;
 }
 </style>

@@ -29,16 +29,25 @@ export default {
         const result = this.recipes.filter(recipe => {
           return JSON.stringify(recipe).match(regexp);
         });
+        if (!result[0]) {
+          this.$emit("open-popup", true);
+        }
         return result;
       } else if (this.searchByIngredient) {
         const result = this.recipes.filter(recipe => {
           return JSON.stringify(recipe.ingredients).match(regexp);
         });
+        if (!result[0]) {
+          this.$emit("open-popup", true);
+        }
         return result;
       } else {
         const result = this.recipes.filter(recipe => {
           return recipe.name.match(regexp);
         });
+        if (!result[0]) {
+          this.$emit("open-popup", true);
+        }
         return result;
       }
     }

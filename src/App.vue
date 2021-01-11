@@ -50,4 +50,7 @@ export default {
   background: #383358 !important;
   color: #ffe5e5 !important;
 }
+.line-height-15 {
+  line-height: 1.5 !important;
+}
 </style>

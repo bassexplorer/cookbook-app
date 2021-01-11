@@ -5,7 +5,7 @@
       v-if="isDemo"
     >
       <span class="mb-5 text-h6">
-        You need to login or Purchase the premium version for this functionality
+        You need to Login or Purchase the premium version to be able to comment
       </span>
       <div>
         <v-btn rounded outlined class="mr-2" :to="register"> Sign Up </v-btn>

@@ -11,7 +11,7 @@
 
       <v-card-actions>
         <slot name="action">
-          <v-btn class="px-5" rounded outlined @click.stop="show = false">
+          <v-btn class="px-5 mb-2" rounded outlined @click.stop="show = false">
             Close
           </v-btn>
         </slot>

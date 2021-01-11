@@ -1,11 +1,12 @@
 <template>
-  <v-sheet class="mx-auto" max-width="800">
+  <v-sheet class="mx-auto" color="transparent" max-width="800">
     <v-slide-group multiple show-arrows>
       <v-slide-item>
         <v-btn
           depressed
           rounded
           link
+          outlined
           class="mx-2"
           active-class="accent white--text"
           :to="{

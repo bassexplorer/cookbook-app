@@ -9,14 +9,14 @@
         </video>
       </v-col>
       <v-col xl="6" lg="6" md="12">
-        <h2 class="text-h2 accent--text font-weight-bold mb-5">
-          Search recipes with ingredients.
+        <h2 class="mb-5 text-h2 accent--text font-weight-bold">
+          Search recipes with ingredients
         </h2>
-        <p class="text-h4">
+        <p class="pt-4 pb-8 text-h4 line-height-15">
           Do you have some items already in store? We are also fans of reducing
           food waste!
         </p>
-        <v-btn outlined x-large to="/registration">
+        <v-btn outlined rounded x-large to="/registration">
           Get the premium version now
         </v-btn>
       </v-col>

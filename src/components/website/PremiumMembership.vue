@@ -2,26 +2,27 @@
   <v-container class="premium-container">
     <v-row class="align-center">
       <v-col xl="6" lg="6" md="12" sm="12">
-        <h2 class="text-h3 accent--text font-weight-bold mb-5">
+        <h2 class="mb-5 text-h2 accent--text font-weight-bold">
           Why become a Premium member?
         </h2>
-        <p class="text-h4">
+        <p class="pt-4 text-h4 line-height-15">
           By choosing the Premium membership, you will be able to unlock all
           recipes and some exclusive features.
         </p>
-        <p class="text-h4">
+        <p class="pb-8 text-h4 line-height-15">
           After becoming a member, you will also have access to the printed
           cookbook at a discounted price.
         </p>
-        <v-btn outlined x-large to="/registration">Explore it now</v-btn>
+        <v-btn outlined rounded x-large to="/registration">
+          Explore it now
+        </v-btn>
       </v-col>
 
       <v-col xl="6" lg="6" md="12" sm="12">
-        <video class="video-box" controls>
-          <source src="movie.mp4" type="video/mp4" />
-          <source src="movie.ogg" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
+        <v-img
+          src="../../assets/base-imgs/mockups.png"
+          alt="A tablet and a phone preview of the application"
+        ></v-img>
       </v-col>
     </v-row>
   </v-container>

@@ -5,11 +5,11 @@
         <h2 class="text-h2 accent--text font-weight-bold mb-5">
           Save your favourite recipes
         </h2>
-        <p class="text-h4">
+        <p class="text-h4 pt-4 pb-8 line-height-15">
           Sign up and create your list of favourites and have access to the full
           selection of recipes
         </p>
-        <v-btn outlined x-large to="/registration">
+        <v-btn outlined rounded x-large to="/registration">
           Get the premium version now
         </v-btn>
       </v-col>

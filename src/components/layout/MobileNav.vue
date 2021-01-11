@@ -11,7 +11,7 @@
       </template>
 
       <v-card>
-        <v-list>
+        <v-list color="transparent">
           <v-list-item v-if="isLoggedIn">
             <v-list-item-avatar>
               <v-img v-if="imgUrl" :src="imgUrl" :alt="displayName"></v-img>
@@ -36,7 +36,7 @@
 
         <v-divider></v-divider>
 
-        <v-list dense>
+        <v-list dense color="transparent darken-4">
           <div v-if="isLoggedIn">
             <v-list-item
               :to="link.link"

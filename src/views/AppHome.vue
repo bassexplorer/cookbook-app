@@ -20,6 +20,7 @@
           <router-view v-if="!isSearching"></router-view>
 
           <search-results
+            @open-popup="noResultFound"
             v-if="isSearching"
             :searchTerm="searchTerm"
             :searchByTitle="byTitle"
@@ -31,6 +32,29 @@
         </v-col>
       </v-row>
     </v-card>
+    <dialog-box v-model="popup">
+      <template #title>
+        <h3>Ohh... Nooo... &#128532;</h3>
+      </template>
+      <template #context>
+        <p class="text-body-1">
+          We didn't found any recipe with the
+          <span v-if="byTitle && !byIngredient"> name of</span>
+          <span v-if="!byTitle && byIngredient"> ingredient of</span>
+          <span v-if="byTitle && byIngredient"> name or ingredients like</span>
+          :
+          <span class="font-weight-bold"> "{{ searchTerm }}" </span>
+        </p>
+      </template>
+
+      <template #action>
+        <div>
+          <v-btn class="px-5 mb-2" rounded outlined @click.stop="resetSearch">
+            Okay
+          </v-btn>
+        </div>
+      </template>
+    </dialog-box>
   </v-container>
 </template>
 
@@ -53,7 +77,8 @@ export default {
       isSearching: false,
       searchTerm: "",
       byTitle: true,
-      byIngredient: false
+      byIngredient: false,
+      popup: false
     };
   },
   methods: {
@@ -67,7 +92,14 @@ export default {
       this.byIngredient = ingredient;
       this.searchTerm = term;
     },
-    ...mapActions("appInit", ["init"])
+    ...mapActions("appInit", ["init"]),
+    noResultFound(value) {
+      this.popup = value;
+    },
+    resetSearch() {
+      this.searchTerm = "";
+      this.popup = false;
+    }
   },
   mounted() {
     if (!this.recipes[0]) {

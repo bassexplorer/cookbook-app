@@ -3,12 +3,12 @@
     <v-row class="align-center">
       <v-col xl="6" lg="6" md="12" sm="12">
         <h1
-          class="text-h2 text-sm-h2 text-md-h1 accent--text font-weight-bold mb-5"
+          class="mb-5 text-h2 text-sm-h2 text-md-h1 accent--text font-weight-bold"
         >
           Do you remember that tasty meal at Vrå Højskole?
         </h1>
         <p class="text-h4">Relive, Share or Gift the Experience</p>
-        <v-btn outlined x-large to="/registration">Sign up</v-btn>
+        <v-btn outlined rounded x-large to="/registration">Sign up</v-btn>
       </v-col>
       <v-col xl="6" lg="6" md="12" sm="12">
         <video class="video-box" controls>

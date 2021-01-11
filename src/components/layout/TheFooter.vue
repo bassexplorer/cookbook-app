@@ -12,6 +12,15 @@
       >
         {{ link.title }}
       </v-btn>
+      <v-btn
+        color="white"
+        text
+        exact
+        href="mailto:info@vraahojskole.dk"
+        class="my-2"
+      >
+        Contact Us
+      </v-btn>
       <v-col class="py-4 text-center white--text accent" cols="12">
         @{{ new Date().getFullYear() }} — Created by:
         <strong> MMDI0919 Sem3MMD Group 4</strong>
@@ -25,7 +34,6 @@ export default {
   data: () => ({
     links: [
       { title: "Home", link: { name: "AppHome" } },
-      { title: "Contact Us", link: { name: "ContactUs" } },
       { title: "Terms and Conditions", link: { name: "TermsAndConditions" } },
       { title: "Privacy Policy", link: { name: "PrivacyPolicy" } }
     ]

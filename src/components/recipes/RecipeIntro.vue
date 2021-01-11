@@ -5,6 +5,7 @@
         <v-col xl="4" lg="4" md="4" sm="4" class="pa-0">
           <v-img
             class="mt-0 rounded-xl"
+            :alt="title + ' on a plate'"
             :src="require(`../../assets/recipeIMG/${this.imageUrl}`)"
           ></v-img>
         </v-col>

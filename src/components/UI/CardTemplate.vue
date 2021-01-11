@@ -7,6 +7,7 @@
   >
     <v-img
       height="250"
+      :alt="title + ' on a plate'"
       :src="require(`../../assets/recipeIMG/${this.missingImg}`)"
     ></v-img>
 

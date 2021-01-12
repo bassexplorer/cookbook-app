@@ -18,6 +18,24 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  computed: mapState("appInit", ["demoRecipes"])
+  computed: {
+    ...mapState("appInit", ["demoRecipes", "recipes"])
+    // ourSuggestions() {
+    //   const recipesBase = this.recipes;
+    //   const suggestions = [];
+
+    //   // if (!recipesBase[0]) return suggestions;
+
+    //   for (let i = 0; i < 4; i++) {
+    //     const randomNum = Math.floor(Math.random() * recipesBase.length);
+    //     const choosenRecipe = recipesBase[randomNum];
+    //     console.log(choosenRecipe);
+    //     suggestions.push(choosenRecipe);
+    //     recipesBase.splice(randomNum, 1);
+    //   }
+    //   console.log("The suggestion end ", suggestions);
+    //   return suggestions;
+    // }
+  }
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <pre>user reviews - {{ userReviews }}</pre>
     <v-card class="pb-6 mx-auto rounded-xl" elevation="6" max-width="1280">
       <div v-if="!isLoading">
         <recipe-intro
@@ -45,8 +46,12 @@
             ></recipe-instructions>
           </v-row>
         </div>
-        <add-review :demo="isDemoRecipe"></add-review>
+        <add-review
+          :demo="isDemoRecipe"
+          :recipeId="loadedRecipe.id"
+        ></add-review>
       </div>
+      <!--  -->
       <div v-if="isLoading" class="pt-6 d-flex flex-column align-center">
         <v-progress-circular
           indeterminate
@@ -54,6 +59,7 @@
         ></v-progress-circular>
         Loading...
       </div>
+      <!--  -->
     </v-card>
     <!-- Dialog box -->
     <dialog-box v-model="openDialog">
@@ -118,16 +124,23 @@ export default {
   },
   mounted() {
     if (!this.recipes[0]) {
-      this.init().then(() => {
-        this.afterInit();
-        this.isLoading = false;
-      });
+      this.init()
+        .then(() => {
+          this.afterInit();
+        })
+        .then(() => {
+          this.initReviews(this.loadedRecipe.id);
+          this.isLoading = false;
+        });
     } else {
       this.afterInit();
+      this.initReviews(this.loadedRecipe.id);
       this.isLoading = false;
     }
   },
   computed: {
+    ...mapState("appInit", ["recipes", "userFavorites"]),
+    ...mapState("postReview", ["userReviews"]),
     isDemoRecipe() {
       const demo = this.$route.query.teaser;
       if (!demo) {
@@ -136,7 +149,6 @@ export default {
         return true;
       }
     },
-    ...mapState("appInit", ["recipes", "userFavorites"]),
     searchUserRecipes() {
       const favorite = this.userFavorites.findIndex(
         recipe => recipe.id == this.loadedRecipe.id
@@ -165,6 +177,7 @@ export default {
   },
   methods: {
     ...mapActions("appInit", ["init"]),
+    ...mapActions("postReview", ["initReviews"]),
     ...mapActions("favoriteRecipes", [
       "saveUpdateRecipe",
       "removeRecipe",
@@ -199,9 +212,6 @@ export default {
         this.userLikeRecipe(this.loadedRecipe);
       } else {
         if (this.loadUserNotes !== "") {
-          // const userWantsToDislike = confirm(
-          //   "Are you sure? You have saved notes on this recipe! If you leave they will be lost!"
-          // );
           this.openDialog = true;
         } else {
           this.removeRecipe(this.loadedRecipe);
@@ -211,7 +221,6 @@ export default {
       this.isSavedByUser = !this.isSavedByUser;
     },
     setPortionSize(newPortion) {
-      // console.log("newPortion", newPortion);
       this.newPortionSize = newPortion;
     }
   },

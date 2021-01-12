@@ -2,7 +2,7 @@
   <v-container fluid>
     <h3 class="text-h4 font-weight-bold">All Recipies</h3>
     <v-row>
-      <v-col v-for="recipe in recipes" :key="recipe.id" xl="6" sm="6">
+      <v-col v-for="recipe in sortedRecipes" :key="recipe.id" xl="6" sm="6">
         <card-template
           :imageUrl="recipe.imageUrl"
           :title="recipe.name"
@@ -20,12 +20,21 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState("appInit", ["recipes", "recipeCategories"]),
-    existingRecipes() {
-      return this.recipes.filter(recipe => {
-        return this.recipeCategories.map(category => {
-          return recipe.category.slug == category.slug;
-        });
+    sortedRecipes() {
+      const sortedRecipe = [...this.recipes].sort((a, b) => {
+        const ca = a.name.toLowerCase();
+        const cb = b.name.toLowerCase();
+
+        if (ca < cb) {
+          return -1;
+        }
+        if (ca > cb) {
+          return 1;
+        }
+        return 0;
       });
+
+      return sortedRecipe;
     }
   }
 };

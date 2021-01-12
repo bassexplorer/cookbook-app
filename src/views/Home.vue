@@ -5,7 +5,7 @@
     </section>
     <section id="recipes" class="py-12 section-background">
       <about-author></about-author>
-      <v-container class="mt-6">
+      <v-container class="mt-6" id="demo_recipes">
         <v-row>
           <v-col
             v-for="(recipe, index) in demoRecipes"

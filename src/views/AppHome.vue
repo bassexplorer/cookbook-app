@@ -103,11 +103,12 @@ export default {
   },
   mounted() {
     if (!this.recipes[0]) {
-      this.init().then(() => {
-        this.isLoading = false;
-      });
-    } else {
-      this.isLoading = false;
+      this.init();
+      //   .then(() => {
+      //     this.isLoading = false;
+      //   });
+      // } else {
+      //   this.isLoading = false;
     }
   },
   computed: {

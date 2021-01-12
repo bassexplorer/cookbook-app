@@ -14,7 +14,7 @@
           saving your favourites, become a premium member!
         </p>
 
-        <v-btn outlined rounded x-large to="/registration">
+        <v-btn outlined rounded x-large link exact to="#demo_recipes">
           Explore Recipes
         </v-btn>
       </v-col>

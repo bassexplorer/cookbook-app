@@ -8,7 +8,7 @@ const actions = {
 
     db.collection("recipes")
       .doc(recipeObj.id)
-      .set(plusLike);
+      .set(recipeObj);
   },
 
   userDislikeRecipe(_, recipeObj) {
@@ -18,7 +18,7 @@ const actions = {
 
     db.collection("recipes")
       .doc(recipeObj.id)
-      .set(minusLike);
+      .set(recipeObj);
   },
 
   async saveUpdateRecipe({ rootState }, recipeObj) {

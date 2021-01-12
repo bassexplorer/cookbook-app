@@ -7,29 +7,11 @@ const state = {
   userReviews: []
 };
 const actions = {
-  // The first argument of the actions functions is the context that contain {state,commit,rootState}
-  //   userLikeReview(_, recipeObj) {
-  //     const plusLike = recipeObj;
-  //     plusLike.likes = recipeObj.likes + 1;
-  //     console.log("after like", plusLike.likes);
-
-  //     db.collection("recipes")
-  //       .doc(recipeObj.id)
-  //       .set(recipeObj);
-  //   },
-
-  //   userDislikeReview(_, recipeObj) {
-  //     if (recipeObj.likes == 0) return;
-  //     const plusLike = recipeObj;
-  //     plusLike.likes = recipeObj.likes - 1;
-  //     console.log("after dislike", plusLike.likes);
-
-  //     db.collection("recipes")
-  //       .doc(recipeObj.id)
-  //       .set(recipeObj);
-  //   },
   initReviews: firestoreAction(
     async ({ bindFirestoreRef, rootState }, recipeId) => {
+      console.log(recipeId);
+      console.log(rootState);
+
       await bindFirestoreRef(
         "userReviews",
         db
@@ -43,27 +25,29 @@ const actions = {
     await unbindFirestoreRef("userReviews");
   }),
   // when a user publish a review of a recipe
-  async saveReview(reviewObj) {
+  async saveReview(_, reviewObj) {
     const dbRef = await db.collection("recipes").doc(reviewObj.recipeId);
-    const reviewId = dbRef.collection("favorite_recipes").doc();
+    const reviewId = dbRef.collection("user_reviews").doc();
     const reviewObjWithId = {
       ...reviewObj,
-      reviewId: reviewId
+      reviewId: reviewId.id,
+      created_at: firebase.firestore.FieldValue.serverTimestamp()
     };
+    console.log(reviewObjWithId);
     dbRef
-      .collection("favorite_recipes")
-      .doc(reviewObjWithId.recipeId)
+      .collection("user_reviews")
+      .doc(reviewObjWithId.reviewId)
       .set(reviewObjWithId);
   },
   // just the owner user can do it
-  async removeReview({ rootState }, reviewObj) {
+  async deleteReview({ rootState }, reviewObj) {
     const currentUserId = rootState["auth"].user.id;
     if (reviewObj.author.id == currentUserId) {
       const dbRef = await db.collection("recipes").doc(reviewObj.recipeId);
 
       const snapshot = await dbRef
-        .collection("favorite_recipes")
-        .doc(reviewObj.id)
+        .collection("user_reviews")
+        .doc(reviewObj.reviewId)
         .delete();
     } else {
       console.log("You can't delete this review");
@@ -71,17 +55,33 @@ const actions = {
     }
   },
   // everybody when a user like the review
-  async updateReview({ commit }, reviewObj) {
-    const dbRef = await db.collection("users").doc(reviewObj.recipeId);
+  async updateReview({ rootState }, reviewObj) {
+    const currentUserId = rootState["auth"].user.id;
+    const dbRef = await db.collection("recipes").doc(reviewObj.recipeId);
+    const reviewObjCopy = reviewObj;
 
-    const snapshot = await dbRef
-      .collection("favorite_recipes")
-      .doc(reviewObj.id)
-      .set();
+    if (reviewObjCopy.likedBy.includes(currentUserId)) {
+      reviewObjCopy.likedBy = reviewObjCopy.likedBy.filter(user => {
+        return user !== currentUserId;
+      });
+      reviewObjCopy.likes = reviewObj.likes - 1;
+      dbRef
+        .collection("user_reviews")
+        .doc(reviewObjCopy.reviewId)
+        .set(reviewObjCopy);
+    } else {
+      reviewObjCopy.likedBy.push(currentUserId);
+      reviewObjCopy.likes = reviewObj.likes + 1;
+      dbRef
+        .collection("user_reviews")
+        .doc(reviewObjCopy.reviewId)
+        .set(reviewObjCopy);
+    }
   }
 };
 
 export default {
   namespaced: true,
-  actions
+  actions,
+  state
 };

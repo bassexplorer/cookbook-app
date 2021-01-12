@@ -6,6 +6,7 @@ const state = {
   demoRecipes: [],
   recipeCategories: [],
   userFavorites: [],
+  ourSuggestions: [],
   isLoading: false
 };
 
@@ -20,6 +21,9 @@ const mutations = {
   },
   setLoading(state, isLoading) {
     state.isLoading = isLoading;
+  },
+  setSuggestions(state, suggestions) {
+    state.ourSuggestions = suggestions;
   }
 };
 
@@ -46,8 +50,10 @@ const actions = {
         .doc(currenrUserId)
         .collection("favorite_recipes")
     );
+
     setTimeout(() => {
       commit("setLoading", false);
+      // }, 0);
     }, 3500);
   })
 };

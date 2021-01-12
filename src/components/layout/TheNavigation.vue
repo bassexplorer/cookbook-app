@@ -91,7 +91,9 @@ export default {
       }
     }
   },
-  methods: { ...mapActions("auth", ["logout"]) },
+  methods: {
+    ...mapActions("auth", ["logout"])
+  },
   data: () => ({
     toggleMenu: false,
     links: [

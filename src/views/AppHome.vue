@@ -93,6 +93,7 @@ export default {
       this.searchTerm = term;
     },
     ...mapActions("appInit", ["init"]),
+    ...mapActions("auth", ["updateUserName"]),
     noResultFound(value) {
       this.popup = value;
     },

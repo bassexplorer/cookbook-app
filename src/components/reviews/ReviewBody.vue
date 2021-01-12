@@ -18,37 +18,55 @@
       elevation=""
       max-width="1060"
       min-height="100"
-      v-for="item in sortedReviews"
-      :key="item.title"
+      v-for="review in sortedReviews"
+      :key="review.reviewId"
       class="mb-4 mr-auto rounded-xl"
     >
       <v-list three-line color="transparent">
-        <v-list-item :key="item.title">
-          <v-list-item-avatar size="60">
-            <v-img :src="item.avatar"></v-img>
+        <v-list-item>
+          <v-list-item-avatar size="60" class="avatar-img elevation-2">
+            <v-img
+              v-if="review.author.image"
+              :src="review.author.image"
+              :alt="review.author.name"
+            ></v-img>
+            <v-icon v-if="!review.author.image" alt="Avatar">
+              mdi-account-circle
+            </v-icon>
           </v-list-item-avatar>
 
           <v-list-item-content class="pb-0">
-            <v-list-item-title
-              class="text-h6"
-              v-html="item.title"
-            ></v-list-item-title>
+            <v-list-item-title class="text-h6 d-inline-flex">
+              <span>{{ review.author.name }}</span>
+              <v-spacer></v-spacer>
+              <v-btn icon v-if="user.id == review.author.id">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </v-list-item-title>
             <v-list-item-subtitle
               class="text-body-1"
-              v-html="item.review"
+              v-html="review.content"
             ></v-list-item-subtitle>
             <v-list-item-action
               class="flex-row justify-start pa-0 ma-0 align-center"
             >
               <div>
-                <v-btn text>
-                  <v-icon class="mr-2 red--text">mdi-heart</v-icon>
-                  like
+                <v-btn
+                  text
+                  @click="onLikeReview(review.reviewId)"
+                  :class="review.likedBy.includes(user.id) ? 'red--text' : ''"
+                >
+                  <v-icon medium class="mr-2">{{
+                    review.likedBy.includes(user.id)
+                      ? "mdi-heart"
+                      : "mdi-heart-outline"
+                  }}</v-icon>
+                  {{ review.likedBy.includes(user.id) ? "Liked" : "Like" }}
                 </v-btn>
               </div>
               <v-spacer></v-spacer>
               <div>
-                {{ item.likes }}
+                {{ review.likes }}
                 <v-icon color="red">mdi-heart</v-icon>
               </div>
             </v-list-item-action>
@@ -60,53 +78,39 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   props: ["isDemo"],
   data: () => ({
     register: { name: "Registration" },
-    login: { name: "LogIn" },
-    items: [
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        title: "Ran Dominic",
-        review: `I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-        likes: 20
-      },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        title: "Bounder David",
-        review: `Wish I could come, but I'm out of town this weekend.`,
-        likes: 8
-      },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        title: "Dice Ricevoy",
-        review: "Do you have Paris recommendations? Have you ever been?",
-        likes: 10
-      },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        title: "Haley Baley",
-        review:
-          "Have any ideas about what we should get Heidi for her birthday?",
-        likes: 20
-      },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-        title: "Nomay Doma",
-        review: "We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
-        likes: 80
-      }
-    ]
+    login: { name: "LogIn" }
   }),
+  methods: {
+    ...mapActions("postReview", ["initReviews", "updateReview"]),
+    onLikeReview(reviewId) {
+      const currentReview = this.sortedReviews.find(review => {
+        return review.reviewId == reviewId;
+      });
+      this.updateReview(currentReview);
+    }
+  },
   computed: {
+    ...mapState("postReview", ["userReviews"]),
+    ...mapState("auth", ["user"]),
     sortedReviews() {
-      const sortedReviews = [...this.items].sort((a, b) => {
+      const sortedReviews = [...this.userReviews].sort((a, b) => {
         return b.likes - a.likes;
       });
 
       return sortedReviews;
     }
+    // userLikedReview() {
+    //   if (this.currentReview.likedBy.includes(this.user)) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
   }
 };
 </script>

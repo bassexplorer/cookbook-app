@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <pre>user reviews - {{ userReviews }}</pre>
     <v-card class="pb-6 mx-auto rounded-xl" elevation="6" max-width="1280">
       <div v-if="!isLoading">
         <recipe-intro
@@ -48,7 +47,7 @@
         </div>
         <add-review
           :demo="isDemoRecipe"
-          :recipeId="loadedRecipe.id"
+          :reviewRecipeId="loadedRecipe.id"
         ></add-review>
       </div>
       <!--  -->
@@ -177,7 +176,7 @@ export default {
   },
   methods: {
     ...mapActions("appInit", ["init"]),
-    ...mapActions("postReview", ["initReviews"]),
+    ...mapActions("postReview", ["initReviews", "tearDownReviews"]),
     ...mapActions("favoriteRecipes", [
       "saveUpdateRecipe",
       "removeRecipe",
@@ -224,15 +223,8 @@ export default {
       this.newPortionSize = newPortion;
     }
   },
-  beforeRouteLeave(to, from, next) {
-    if (this.isEditing) {
-      const userWantsToLeave = confirm(
-        "Are you sure? You have unsaved changes!"
-      );
-      next(userWantsToLeave);
-    } else {
-      next();
-    }
+  beforeDestroy() {
+    this.tearDownReviews();
   }
 };
 </script>

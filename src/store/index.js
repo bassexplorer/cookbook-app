@@ -5,6 +5,7 @@ import auth from "./auth";
 import seedScript from "./seedScript";
 import appInit from "./appInit";
 import favoriteRecipes from "./favoriteRecipes";
+import postReview from "./postReview";
 
 Vue.use(Vuex);
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     auth,
     seedScript,
     appInit,
-    favoriteRecipes
+    favoriteRecipes,
+    postReview
   }
 });

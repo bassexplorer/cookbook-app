@@ -18,7 +18,7 @@
             class="text-center d-flex flex-column rounded-circle price-tag pa-8"
           >
             <h4 class="text-h4 font-weight-bold red--text text--darken-3">
-              400dkk
+              200dkk
             </h4>
             <p class="text-h5">+ Premium version for free</p>
           </v-sheet>

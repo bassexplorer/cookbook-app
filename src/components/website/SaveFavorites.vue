@@ -2,10 +2,10 @@
   <v-container class="favorites-container">
     <v-row class="align-center">
       <v-col xl="6" lg="6" md="12" sm="12">
-        <h2 class="text-h2 accent--text font-weight-bold mb-5">
+        <h2 class="mb-5 text-h2 accent--text font-weight-bold">
           Save your favourite recipes
         </h2>
-        <p class="text-h4 pt-4 pb-8 line-height-15">
+        <p class="pt-4 pb-8 text-h4 line-height-15">
           Sign up and create your list of favourites and have access to the full
           selection of recipes
         </p>
@@ -14,11 +14,10 @@
         </v-btn>
       </v-col>
       <v-col xl="6" lg="6" md="12" sm="12">
-        <video class="video-box" controls>
-          <source src="movie.mp4" type="video/mp4" />
-          <source src="movie.ogg" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
+        <video-player
+          :videoUrl="require('../../assets/videos/cookbook_video3.mp4')"
+          :posterUrl="require('../../assets/base-imgs/video-start3.png')"
+        ></video-player>
       </v-col>
     </v-row>
   </v-container>
@@ -28,12 +27,4 @@
 export default {};
 </script>
 
-<style lang="scss" scoped>
-.video-box {
-  min-width: 320px;
-  max-width: 750px;
-  max-height: 368px;
-  width: 100%;
-  height: auto;
-}
-</style>
+<style lang="scss" scoped></style>

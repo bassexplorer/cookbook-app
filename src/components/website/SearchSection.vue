@@ -2,11 +2,11 @@
   <v-container class="search-container">
     <v-row class="align-center">
       <v-col xl="6" lg="6" md="12" sm="12">
-        <video class="video-box" controls>
-          <source src="movie.mp4" type="video/mp4" />
-          <source src="movie.ogg" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
+        <video-player
+          class="video-player"
+          :videoUrl="require('../../assets/videos/cookbook_video2.mp4')"
+          :posterUrl="require('../../assets/base-imgs/video-start2.png')"
+        ></video-player>
       </v-col>
       <v-col xl="6" lg="6" md="12">
         <h2 class="mb-5 text-h2 accent--text font-weight-bold">
@@ -29,11 +29,7 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.video-box {
-  min-width: 320px;
-  max-width: 750px;
-  max-height: 368px;
-  width: 100%;
-  height: auto;
+.video-player {
+  mix-blend-mode: darken;
 }
 </style>

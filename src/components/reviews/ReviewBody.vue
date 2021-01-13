@@ -39,7 +39,11 @@
             <v-list-item-title class="text-h6 d-inline-flex">
               <span>{{ review.author.name }}</span>
               <v-spacer></v-spacer>
-              <v-btn icon v-if="user.id == review.author.id">
+              <v-btn
+                icon
+                v-if="user.id == review.author.id"
+                @click="deleteReviewByUser(review)"
+              >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-list-item-title>
@@ -53,7 +57,7 @@
               <div>
                 <v-btn
                   text
-                  @click="onLikeReview(review.reviewId)"
+                  @click="onLikeReview(review)"
                   :class="review.likedBy.includes(user.id) ? 'red--text' : ''"
                 >
                   <v-icon medium class="mr-2">{{
@@ -86,12 +90,19 @@ export default {
     login: { name: "LogIn" }
   }),
   methods: {
-    ...mapActions("postReview", ["initReviews", "updateReview"]),
-    onLikeReview(reviewId) {
-      const currentReview = this.sortedReviews.find(review => {
-        return review.reviewId == reviewId;
-      });
+    ...mapActions("postReview", [
+      "initReviews",
+      "updateReview",
+      "deleteReview"
+    ]),
+    onLikeReview(currentReview) {
+      // const currentReview = this.sortedReviews.find((review) => {
+      //   return review.reviewId == reviewId;
+      // });
       this.updateReview(currentReview);
+    },
+    deleteReviewByUser(currentReview) {
+      this.deleteReview(currentReview);
     }
   },
   computed: {
@@ -104,13 +115,6 @@ export default {
 
       return sortedReviews;
     }
-    // userLikedReview() {
-    //   if (this.currentReview.likedBy.includes(this.user)) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
   }
 };
 </script>

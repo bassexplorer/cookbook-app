@@ -11,18 +11,36 @@
         <v-btn outlined rounded x-large to="/registration">Sign up</v-btn>
       </v-col>
       <v-col xl="6" lg="6" md="12" sm="12">
-        <video class="video-box" controls>
-          <source src="movie.mp4" type="video/mp4" />
-          <source src="movie.ogg" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
+        <video-player
+          :videoUrl="require('../../assets/videos/cookbook_video1.mp4')"
+          :posterUrl="require('../../assets/base-imgs/video-start.png')"
+        ></video-player>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  // data() {
+  //   return {
+  //     isPlaying: false
+  //   };
+  // },
+  // methods: {
+  //   playVideo() {
+  //     const video = this.$refs.video;
+  //     console.log(video.playing);
+  //     if (this.isPlaying) {
+  //       video.pause();
+  //       this.isPlaying = false;
+  //     } else {
+  //       this.isPlaying = true;
+  //       video.play();
+  //     }
+  //   }
+  // }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -30,12 +48,5 @@ export default {};
   min-height: calc(100vh - (128px + 30px));
   display: flex;
   justify-content: center;
-}
-.video-box {
-  min-width: 320px;
-  max-width: 750px;
-  max-height: 368px;
-  width: 100%;
-  height: auto;
 }
 </style>

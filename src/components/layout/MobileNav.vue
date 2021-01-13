@@ -7,7 +7,13 @@
       offset-y
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-app-bar-nav-icon v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
+        <v-btn depressed text fab v-bind="attrs" v-on="on">
+          <div class="align-center d-flex flex-column">
+            <v-icon>mdi-menu</v-icon>
+            <span> Menu </span>
+          </div>
+        </v-btn>
+        <!-- <span class="text-body-1">Menu</span> -->
       </template>
 
       <v-card>

@@ -11,12 +11,14 @@ import axios from "axios";
 
 import CardTemplate from "./components/UI/CardTemplate.vue";
 import DialogBox from "./components/UI/DialogBox.vue";
+import VideoPlayer from "./components/UI/VideoPlayer.vue";
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
 Vue.component("card-template", CardTemplate);
 Vue.component("dialog-box", DialogBox);
+Vue.component("video-player", VideoPlayer);
 
 let app;
 firebase.auth().onAuthStateChanged(user => {

@@ -9,8 +9,8 @@ const state = {
 const actions = {
   initReviews: firestoreAction(
     async ({ bindFirestoreRef, rootState }, recipeId) => {
-      console.log(recipeId);
-      console.log(rootState);
+      // console.log(recipeId);
+      // console.log(rootState);
 
       await bindFirestoreRef(
         "userReviews",
@@ -33,7 +33,7 @@ const actions = {
       reviewId: reviewId.id,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     };
-    console.log(reviewObjWithId);
+    // console.log(reviewObjWithId);
     dbRef
       .collection("user_reviews")
       .doc(reviewObjWithId.reviewId)
@@ -45,7 +45,7 @@ const actions = {
     if (reviewObj.author.id == currentUserId) {
       const dbRef = await db.collection("recipes").doc(reviewObj.recipeId);
 
-      const snapshot = await dbRef
+      dbRef
         .collection("user_reviews")
         .doc(reviewObj.reviewId)
         .delete();
